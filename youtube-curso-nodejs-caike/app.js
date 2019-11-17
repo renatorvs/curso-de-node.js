@@ -93,15 +93,62 @@ sequelize.authenticate().then(function(){
 });
 
 
-/// criando 
+/// criando tabela  sequelize  
+
+//const User = sequelize.define('pagamentos', {
+	//atribute
+	//nome: {
+	//	type:Sequelize.STRING,
+	//},
+	//valor: {
+	//	type:Sequelize.DOUBLE
+//	}
+	
+//});
+//  ser.sync({force:true});
+
 
 //-----------------------------------------------
+///----  Handlebars no Node e criar o layout padrão para o projeto
+
+
+
+const handlebars = require("express-handlebars");
+
+app.listen(8081);
+
+app.engine('handlebars', handlebars({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
+
+// rotas
+app.get('/add-pagamento', function(req, res) {
+	
+	res.send("formulario para cadastro");
+	
+});
+app.get('/pagamento', function(req, res) {
+	
+	res.send("pagamento para cadastro");
+	
+});
+
+///////// pegando dados do formulario com extensao body-parse
+
+const bodyparse = require('body-parser');
+app.use(bodyparse.urlencoded({defaultLayout: 'main'}));
+app.use(bodyparse.json());
+
+app.post('/addpagamento',function(req, res){
+	res.send("nome :" + req.body.nome + " email: " + req.body.email);
+});
+
+
+
 // ROTAS com EXPRESS  PACKATES
-
-
 app.get("/", function(req, res){
 	res.sendFile(__dirname + "/src/index.html");
 })
+
 
 
 app.get("/sobre", function(req, res){
@@ -118,7 +165,6 @@ app.get("/blog", function(req, res){
 
 
 //SOBE O SEVIDOR LOCALHOST: 8081
-app.listen(8081);
 
 
 //  servidor ser recarregado automaticamente NODEMON
